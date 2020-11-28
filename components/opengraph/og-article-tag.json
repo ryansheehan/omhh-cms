@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_opengraph_og_article_tags",
+  "info": {
+    "name": "og article tag",
+    "icon": "tag"
+  },
+  "options": {},
+  "attributes": {
+    "tag": {
+      "type": "string"
+    }
+  }
+}

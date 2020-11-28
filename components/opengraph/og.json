@@ -1,0 +1,36 @@
+{
+  "collectionName": "components_opengraph_ogs",
+  "info": {
+    "name": "og",
+    "icon": "address-card",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "maxLength": 95
+    },
+    "type": {
+      "type": "string",
+      "maxLength": 20,
+      "default": "article"
+    },
+    "url": {
+      "type": "string"
+    },
+    "images": {
+      "type": "component",
+      "repeatable": true,
+      "component": "opengraph.og-image"
+    },
+    "description": {
+      "type": "text",
+      "maxLength": 200
+    },
+    "site_name": {
+      "type": "string",
+      "default": "Oh My Heart and Home"
+    }
+  }
+}

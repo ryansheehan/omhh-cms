@@ -1,0 +1,38 @@
+{
+  "collectionName": "components_opengraph_og_images",
+  "info": {
+    "name": "og image",
+    "icon": "address-book",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "url": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "width": {
+      "type": "integer"
+    },
+    "height": {
+      "type": "integer"
+    },
+    "alt": {
+      "type": "string"
+    },
+    "src": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "image": {
+      "type": "string"
+    }
+  }
+}

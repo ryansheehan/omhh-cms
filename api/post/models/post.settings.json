@@ -1,0 +1,63 @@
+{
+  "kind": "collectionType",
+  "collectionName": "posts",
+  "info": {
+    "name": "post",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "unique": true,
+      "required": true,
+      "maxLength": 116
+    },
+    "summary": {
+      "type": "text",
+      "required": true,
+      "maxLength": 400
+    },
+    "content": {
+      "type": "richtext",
+      "required": true,
+      "maxLength": 20000
+    },
+    "slug": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "html_meta": {
+      "type": "component",
+      "repeatable": false,
+      "component": "html.meta"
+    },
+    "og": {
+      "type": "component",
+      "repeatable": false,
+      "component": "opengraph.og"
+    },
+    "og_article_type": {
+      "type": "component",
+      "repeatable": false,
+      "component": "opengraph.og-article-type"
+    },
+    "author": {
+      "type": "string"
+    },
+    "image": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false
+    }
+  }
+}

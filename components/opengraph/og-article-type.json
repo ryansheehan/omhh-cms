@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_opengraph_og_article_types",
+  "info": {
+    "name": "og article type",
+    "icon": "tasks",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "published_time": {
+      "type": "datetime"
+    },
+    "modified_time": {
+      "type": "datetime"
+    },
+    "expiration_time": {
+      "type": "datetime"
+    },
+    "author": {
+      "type": "string"
+    },
+    "section": {
+      "type": "string",
+      "default": "Cooking & Lifestyle"
+    },
+    "tags": {
+      "type": "component",
+      "repeatable": true,
+      "component": "opengraph.og-article-tag"
+    }
+  }
+}

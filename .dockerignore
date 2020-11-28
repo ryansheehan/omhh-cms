@@ -1,0 +1,7 @@
+.cache
+.tmp
+.vscode
+build
+node_modules
+
+.env

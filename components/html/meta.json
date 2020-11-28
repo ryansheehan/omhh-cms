@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_meta_metas",
+  "info": {
+    "name": "meta",
+    "icon": "code",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 70
+    },
+    "description": {
+      "type": "text",
+      "required": true,
+      "maxLength": 155
+    }
+  }
+}

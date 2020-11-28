@@ -1,0 +1,23 @@
+{
+  "kind": "singleType",
+  "collectionName": "sites",
+  "info": {
+    "name": "site",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "base_url": {
+      "type": "string"
+    },
+    "og": {
+      "type": "component",
+      "repeatable": false,
+      "component": "opengraph.og"
+    }
+  }
+}
