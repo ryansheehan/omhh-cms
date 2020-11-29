@@ -3,5 +3,5 @@ WORKDIR /app
 ENV NODE_ENV=production
 COPY . .
 VOLUME .tmp
-RUN mkdir .tmp && npm install && npm run build
+RUN npm install && npm run build
 CMD npm start --
