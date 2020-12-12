@@ -1,86 +1,85 @@
 {
-  "taskDefinitionArn": "arn:aws:ecs:us-east-2:515365060981:task-definition/omhh-cms-run:10",
   "containerDefinitions": [
-      {
-          "name": "omhh-cms",
-          "image": "515365060981.dkr.ecr.us-east-2.amazonaws.com/omhh-cms:0.1.0",
-          "cpu": 0,
-          "portMappings": [
-              {
-                  "containerPort": 1337,
-                  "hostPort": 1337,
-                  "protocol": "tcp"
-              }
-          ],
-          "essential": true,
-          "entryPoint": [],
-          "environment": [
-              {
-                  "name": "UPLOAD_PROVIDER",
-                  "value": "aws-s3"
-              },
-              {
-                  "name": "CLOUDFRONT",
-                  "value": "https://content.ohmyheartandhome.com"
-              },
-              {
-                  "name": "DATABASE_PROVIDER",
-                  "value": "mysql"
-              }
-          ],
-          "mountPoints": [],
-          "volumesFrom": [],
-          "secrets": [
-              {
-                  "name": "ADMIN_JWT_SECRET",
-                  "valueFrom": "arn:aws:ssm:us-east-2:515365060981:parameter/omhh-cms-admin-jwt-secret"
-              },
-              {
-                  "name": "AWS_ACCESS_KEY_ID",
-                  "valueFrom": "arn:aws:ssm:us-east-2:515365060981:parameter/omhh-cms-s3-access-key"
-              },
-              {
-                  "name": "AWS_ACCESS_SECRET",
-                  "valueFrom": "arn:aws:ssm:us-east-2:515365060981:parameter/omhh-cms-s3-secret"
-              },
-              {
-                  "name": "AWS_BUCKET",
-                  "valueFrom": "arn:aws:ssm:us-east-2:515365060981:parameter/omhh-cms-s3-bucket"
-              },
-              {
-                  "name": "AWS_REGION",
-                  "valueFrom": "arn:aws:ssm:us-east-2:515365060981:parameter/omhh-cms-s3-region"
-              },
-              {
-                  "name": "DATABASE_HOST",
-                  "valueFrom": "arn:aws:ssm:us-east-2:515365060981:parameter/omhh-cms-db-host"
-              },
-              {
-                  "name": "DATABASE_NAME",
-                  "valueFrom": "arn:aws:ssm:us-east-2:515365060981:parameter/omhh-cms-db-name"
-              },
-              {
-                  "name": "DATABASE_PASSWORD",
-                  "valueFrom": "arn:aws:ssm:us-east-2:515365060981:parameter/omhh-cms-db-password"
-              },
-              {
-                  "name": "DATABASE_PORT",
-                  "valueFrom": "arn:aws:ssm:us-east-2:515365060981:parameter/omhh-cms-db-port"
-              },
-              {
-                  "name": "DATABASE_USERNAME",
-                  "valueFrom": "arn:aws:ssm:us-east-2:515365060981:parameter/omhh-cms-db-username"
-              }
-          ],
-          "logConfiguration": {
-              "logDriver": "awslogs",
-              "options": {
-                  "awslogs-group": "/ecs/omhh-cms-run",
-                  "awslogs-region": "us-east-2",
-                  "awslogs-stream-prefix": "ecs"
-              }
-          }
+    {
+      "name": "omhh-cms",
+      "image": "515365060981.dkr.ecr.us-east-2.amazonaws.com/omhh-cms:0.1.0",
+      "cpu": 0,
+      "portMappings": [
+        {
+          "containerPort": 1337,
+          "hostPort": 1337,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "entryPoint": [],
+      "environment": [
+        {
+          "name": "UPLOAD_PROVIDER",
+          "value": "aws-s3"
+        },
+        {
+          "name": "CLOUDFRONT",
+          "value": "https://content.ohmyheartandhome.com"
+        },
+        {
+          "name": "DATABASE_PROVIDER",
+          "value": "mysql"
+        }
+      ],
+      "mountPoints": [],
+      "volumesFrom": [],
+      "secrets": [
+        {
+          "name": "ADMIN_JWT_SECRET",
+          "valueFrom": "arn:aws:ssm:us-east-2:515365060981:parameter/omhh-cms-admin-jwt-secret"
+        },
+        {
+          "name": "AWS_ACCESS_KEY_ID",
+          "valueFrom": "arn:aws:ssm:us-east-2:515365060981:parameter/omhh-cms-s3-access-key"
+        },
+        {
+          "name": "AWS_ACCESS_SECRET",
+          "valueFrom": "arn:aws:ssm:us-east-2:515365060981:parameter/omhh-cms-s3-secret"
+        },
+        {
+          "name": "AWS_BUCKET",
+          "valueFrom": "arn:aws:ssm:us-east-2:515365060981:parameter/omhh-cms-s3-bucket"
+        },
+        {
+          "name": "AWS_REGION",
+          "valueFrom": "arn:aws:ssm:us-east-2:515365060981:parameter/omhh-cms-s3-region"
+        },
+        {
+          "name": "DATABASE_HOST",
+          "valueFrom": "arn:aws:ssm:us-east-2:515365060981:parameter/omhh-cms-db-host"
+        },
+        {
+          "name": "DATABASE_NAME",
+          "valueFrom": "arn:aws:ssm:us-east-2:515365060981:parameter/omhh-cms-db-name"
+        },
+        {
+          "name": "DATABASE_PASSWORD",
+          "valueFrom": "arn:aws:ssm:us-east-2:515365060981:parameter/omhh-cms-db-password"
+        },
+        {
+          "name": "DATABASE_PORT",
+          "valueFrom": "arn:aws:ssm:us-east-2:515365060981:parameter/omhh-cms-db-port"
+        },
+        {
+          "name": "DATABASE_USERNAME",
+          "valueFrom": "arn:aws:ssm:us-east-2:515365060981:parameter/omhh-cms-db-username"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/omhh-cms-run",
+          "awslogs-region": "us-east-2",
+          "awslogs-stream-prefix": "ecs"
+        }
       }
+    }
   ],
   "family": "omhh-cms-run",
   "taskRoleArn": "arn:aws:iam::515365060981:role/ecsTaskExecutionRole",
@@ -90,41 +89,41 @@
   "volumes": [],
   "status": "ACTIVE",
   "requiresAttributes": [
-      {
-          "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
-      },
-      {
-          "name": "ecs.capability.execution-role-awslogs"
-      },
-      {
-          "name": "com.amazonaws.ecs.capability.ecr-auth"
-      },
-      {
-          "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
-      },
-      {
-          "name": "com.amazonaws.ecs.capability.task-iam-role"
-      },
-      {
-          "name": "ecs.capability.execution-role-ecr-pull"
-      },
-      {
-          "name": "ecs.capability.secrets.ssm.environment-variables"
-      },
-      {
-          "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
-      },
-      {
-          "name": "ecs.capability.task-eni"
-      }
+    {
+      "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+    },
+    {
+      "name": "ecs.capability.execution-role-awslogs"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.ecr-auth"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.task-iam-role"
+    },
+    {
+      "name": "ecs.capability.execution-role-ecr-pull"
+    },
+    {
+      "name": "ecs.capability.secrets.ssm.environment-variables"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+    },
+    {
+      "name": "ecs.capability.task-eni"
+    }
   ],
   "placementConstraints": [],
   "compatibilities": [
-      "EC2",
-      "FARGATE"
+    "EC2",
+    "FARGATE"
   ],
   "requiresCompatibilities": [
-      "FARGATE"
+    "FARGATE"
   ],
   "cpu": "512",
   "memory": "1024"
