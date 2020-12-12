@@ -1,7 +1,6 @@
 on:
-  create:
-    tags:
-      - "v*"
+  push:
+    tags: v[0-9]+.[0-9]+.[0-9]+
 
 name: Deploy to Amazon ECS
 
