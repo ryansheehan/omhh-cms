@@ -1,6 +1,7 @@
 on:
-  release:
-    types: [created]
+  create:
+    tags:
+      - "v*"
 
 name: Deploy to Amazon ECS
 
