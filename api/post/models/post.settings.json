@@ -17,6 +17,23 @@
       "required": true,
       "maxLength": 116
     },
+    "author": {
+      "type": "string"
+    },
+    "image": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "tags": {
+      "collection": "tag",
+      "via": "posts",
+      "dominant": true
+    },
     "summary": {
       "type": "text",
       "required": true,
@@ -46,18 +63,6 @@
       "type": "component",
       "repeatable": false,
       "component": "opengraph.og-article-type"
-    },
-    "author": {
-      "type": "string"
-    },
-    "image": {
-      "model": "file",
-      "via": "related",
-      "allowedTypes": [
-        "images"
-      ],
-      "plugin": "upload",
-      "required": false
     }
   }
 }

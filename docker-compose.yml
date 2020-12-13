@@ -11,14 +11,3 @@ services:
       MYSQL_PASSWORD: user
     volumes:
       - ./.tmp/mysql:/var/lib/mysql
-
-  adminer:
-    image: adminer
-    restart: always
-    ports:
-      - 8080:8080
-    depends_on:
-      - db
-
-  # omhh-cms:
-  #   build: .
