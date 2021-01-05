@@ -23,7 +23,14 @@ const configure_mysql = (env) => ({
       username: env('DATABASE_USERNAME'),
       password: env('DATABASE_PASSWORD'),
     },
-    options: {},
+    options: {
+      pool: {
+        min: 0,
+        max: 1,
+        idleTimeoutMillis: 120000,
+        reapIntervalMillis: 300000,
+      }
+    },
   }
 });
 
