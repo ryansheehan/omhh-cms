@@ -27,8 +27,8 @@ const configure_mysql = (env) => ({
       pool: {
         min: 0,
         max: 1,
-        idleTimeoutMillis: 120000,
-        reapIntervalMillis: 300000,
+        idleTimeoutMillis: 30000,
+        reapIntervalMillis: 1000,
       }
     },
   }
