@@ -1,16 +1,17 @@
 version: "3.8"
 services:
   db:
-    image: mysql
+    image: mongo
     ports:
-      - 3306:3306
+      - 27017:27017
     environment:
-      MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: omhhdev
-      MYSQL_USER: user
-      MYSQL_PASSWORD: user
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: omhhdev
     volumes:
-      - db-data:/var/lib/mysql
+      - db-data:/data/db
+      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+
   adminer:
     image: adminer
     ports:
@@ -29,6 +30,7 @@ services:
     command: server /data
     volumes:
       - s3-data:/data
+
   bootstrap-minio:
     image: amazon/aws-cli
     command: s3api --endpoint-url http://s3-minio:9000 --no-verify-ssl create-bucket --bucket omhh-images

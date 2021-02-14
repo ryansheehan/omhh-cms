@@ -11,7 +11,6 @@ const configure_sqlite = (env) => ({
   }
 });
 
-
 const configure_mysql = (env) => ({
   default: {
     connector: 'bookshelf',
@@ -34,9 +33,28 @@ const configure_mysql = (env) => ({
   }
 });
 
+const configure_mongodb = (env) => ({
+  default: {
+    connector: 'mongoose',
+    settings: {
+      client: 'mongo',
+      host: env('DATABASE_HOST'),
+      port: env.int('DATABASE_PORT'),
+      database: env('DATABASE_NAME'),
+      username: env('DATABASE_USERNAME'),
+      password: env('DATABASE_PASSWORD'),
+    },
+    options: {
+      authenticationDatabase: env('AUTHENTICATION_DATABASE'),
+      ssl: env('DATABASE_SSL'),
+    },
+  }
+});
+
 const configure_db = (env) => {
   switch(env('DATABASE_PROVIDER')) {
     case 'mysql': return configure_mysql(env);
+    case 'mongo': return configure_mongodb(env);
     case 'sqlite':
     default:
       return configure_sqlite(env);
