@@ -1,13 +1,14 @@
 const configure_upload_aws = env => ({
   provider: 'aws-s3-cdn',
   providerOptions: {
-    accessKeyId: env('AWS_ACCESS_KEY_ID'),
-    secretAccessKey: env('AWS_ACCESS_SECRET'),
-    region: env('AWS_REGION'),
+    accessKeyId: env('S3_ACCESS_KEY_ID'),
+    secretAccessKey: env('S3_ACCESS_SECRET'),
+    // region: env('S3_REGION'),
+    endpoint: env('S3_ENDPOINT'),
     params: {
-      Bucket: env('AWS_BUCKET'),
+      Bucket: env('S3_BUCKET'),
     },
-    cdn: env('CLOUDFRONT'),
+    cdnBaseUrl: env('CDN_BASE_URL'),
   }
 });
 

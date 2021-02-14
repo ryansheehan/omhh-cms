@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   db:
-    image: mariadb
+    image: mysql
     ports:
       - 3306:3306
     environment:
@@ -10,4 +10,25 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: user
     volumes:
-      - ./.tmp/mysql:/var/lib/mysql
+      - db-data:/var/lib/mysql
+  s3-minio:
+    image: minio/minio
+    environment:
+      MINIO_ACCESS_KEY: accessKey1
+      MINIO_SECRET_KEY: verySecretKey1
+    ports:
+      - 9000:9000
+    command: server /data
+    volumes:
+      - s3-data:/data
+  bootstrap-minio:
+    image: amazon/aws-cli
+    command: s3api --endpoint-url http://s3-minio:9000 --no-verify-ssl create-bucket --bucket omhh-images
+    volumes:
+      - ./.aws:/root/.aws
+    depends_on:
+      - s3-minio
+
+volumes:
+  s3-data:
+  db-data:
