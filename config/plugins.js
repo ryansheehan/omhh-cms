@@ -3,8 +3,9 @@ const configure_upload_aws = env => ({
   providerOptions: {
     accessKeyId: env('S3_ACCESS_KEY_ID'),
     secretAccessKey: env('S3_ACCESS_SECRET'),
-    // region: env('S3_REGION'),
+    region: env('S3_REGION'),
     endpoint: env('S3_ENDPOINT'),
+    s3ForcePathStyle: env('S3_FORCE_PATH_STYLE'),
     params: {
       Bucket: env('S3_BUCKET'),
     },

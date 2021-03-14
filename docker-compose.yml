@@ -25,6 +25,7 @@ services:
     environment:
       MINIO_ACCESS_KEY: accessKey1
       MINIO_SECRET_KEY: verySecretKey1
+      MINIO_REGION_NAME: my-region
     ports:
       - 9000:9000
     command: server /data
@@ -32,12 +33,10 @@ services:
       - s3-data:/data
 
   bootstrap-minio:
-    image: amazon/aws-cli
-    command: s3api --endpoint-url http://s3-minio:9000 --no-verify-ssl create-bucket --bucket omhh-images
+    build: ./local-bootstrap/minio
+    command: omhh-images
     volumes:
       - ./.aws:/root/.aws
-    depends_on:
-      - s3-minio
 
 volumes:
   s3-data:
