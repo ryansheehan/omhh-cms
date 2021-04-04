@@ -2,7 +2,7 @@
   "kind": "collectionType",
   "collectionName": "posts",
   "info": {
-    "name": "post",
+    "name": "post-old",
     "description": ""
   },
   "options": {
@@ -28,11 +28,6 @@
       ],
       "plugin": "upload",
       "required": false
-    },
-    "tags": {
-      "collection": "tag",
-      "via": "posts",
-      "dominant": true
     },
     "summary": {
       "type": "text",

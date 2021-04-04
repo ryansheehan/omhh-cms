@@ -2,48 +2,48 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/tags",
-      "handler": "tag.find",
+      "path": "/recipes",
+      "handler": "recipe.find",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/tags/count",
-      "handler": "tag.count",
+      "path": "/recipes/count",
+      "handler": "recipe.count",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/tags/:id",
-      "handler": "tag.findOne",
+      "path": "/recipes/:id",
+      "handler": "recipe.findOne",
       "config": {
         "policies": []
       }
     },
     {
       "method": "POST",
-      "path": "/tags",
-      "handler": "tag.create",
+      "path": "/recipes",
+      "handler": "recipe.create",
       "config": {
         "policies": []
       }
     },
     {
       "method": "PUT",
-      "path": "/tags/:id",
-      "handler": "tag.update",
+      "path": "/recipes/:id",
+      "handler": "recipe.update",
       "config": {
         "policies": []
       }
     },
     {
       "method": "DELETE",
-      "path": "/tags/:id",
-      "handler": "tag.delete",
+      "path": "/recipes/:id",
+      "handler": "recipe.delete",
       "config": {
         "policies": []
       }

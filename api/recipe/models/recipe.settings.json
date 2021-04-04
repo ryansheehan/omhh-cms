@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "recipes",
+  "info": {
+    "name": "recipe",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "ingredients": {
+      "type": "component",
+      "repeatable": true,
+      "component": "recipe.ingredient",
+      "required": true
+    },
+    "steps": {
+      "type": "component",
+      "repeatable": true,
+      "component": "recipe.step",
+      "required": true
+    },
+    "prep_time": {
+      "type": "integer"
+    },
+    "cook_time": {
+      "type": "integer"
+    }
+  }
+}

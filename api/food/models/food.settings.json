@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "foods",
+  "info": {
+    "name": "food",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "fdc_id": {
+      "type": "biginteger",
+      "private": false,
+      "required": true,
+      "unique": true
+    },
+    "description": {
+      "type": "string",
+      "required": true
+    },
+    "nutrient": {
+      "type": "component",
+      "repeatable": true,
+      "component": "nutrition.food-nutrient",
+      "required": true
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_nutrition_food_nutrients",
+  "info": {
+    "name": "food-nutrient",
+    "icon": "sitemap"
+  },
+  "options": {},
+  "attributes": {
+    "amount": {
+      "type": "float",
+      "required": true
+    },
+    "nutrient": {
+      "model": "nutrient"
+    }
+  }
+}

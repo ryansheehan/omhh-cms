@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_recipe_steps",
+  "info": {
+    "name": "step",
+    "icon": "blender"
+  },
+  "options": {},
+  "attributes": {
+    "instruction": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

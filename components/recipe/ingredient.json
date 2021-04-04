@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_recipe_ingredients",
+  "info": {
+    "name": "ingredient",
+    "icon": "list-ul"
+  },
+  "options": {},
+  "attributes": {
+    "amount": {
+      "type": "float",
+      "required": true
+    },
+    "food": {
+      "model": "food"
+    }
+  }
+}
