@@ -3,16 +3,21 @@
   "collectionName": "foods",
   "info": {
     "name": "food",
-    "description": ""
+    "description": "basic food information"
   },
   "options": {
     "increments": true,
-    "timestamps": true,
+    "timestamps": false,
+    "privateAttributes": [
+      "created_at",
+      "updated_at",
+      "id"
+    ],
     "draftAndPublish": false
   },
   "attributes": {
     "fdc_id": {
-      "type": "biginteger",
+      "type": "integer",
       "private": false,
       "required": true,
       "unique": true
@@ -21,11 +26,23 @@
       "type": "string",
       "required": true
     },
-    "nutrient": {
+    "nutrients": {
       "type": "component",
       "repeatable": true,
       "component": "nutrition.food-nutrient",
-      "required": true
+      "required": false
+    },
+    "source": {
+      "type": "enumeration",
+      "enum": [
+        "branded_food",
+        "foundation_food",
+        "sr_legacy_food",
+        "survey_fndds_food",
+        "custom"
+      ],
+      "required": true,
+      "default": "custom"
     }
   }
 }

@@ -31,22 +31,6 @@
       "config": {
         "policies": []
       }
-    },
-    {
-      "method": "PUT",
-      "path": "/nutrients/:id",
-      "handler": "nutrient.update",
-      "config": {
-        "policies": []
-      }
-    },
-    {
-      "method": "DELETE",
-      "path": "/nutrients/:id",
-      "handler": "nutrient.delete",
-      "config": {
-        "policies": []
-      }
     }
   ]
 }

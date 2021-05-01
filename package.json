@@ -5,6 +5,7 @@
   "description": "A Strapi application",
   "scripts": {
     "develop": "strapi develop",
+    "develop:admin": "strapi develop --watch-admin",
     "start": "strapi start",
     "build": "strapi build",
     "strapi": "strapi"
@@ -13,21 +14,22 @@
     "sqlite3": "^5.0.2"
   },
   "dependencies": {
+    "csv-parser": "^3.0.0",
     "knex": "<0.95.4",
     "mysql": "^2.18.1",
     "slugify": "^1.5.0",
-    "strapi": "3.5.4",
-    "strapi-admin": "3.5.4",
-    "strapi-connector-bookshelf": "3.5.4",
-    "strapi-connector-mongoose": "3.5.4",
-    "strapi-plugin-content-manager": "3.5.4",
-    "strapi-plugin-content-type-builder": "3.5.4",
-    "strapi-plugin-email": "3.5.4",
-    "strapi-plugin-upload": "3.5.4",
-    "strapi-plugin-users-permissions": "3.5.4",
-    "strapi-provider-upload-aws-s3": "^3.5.4",
+    "strapi": "3.6.1",
+    "strapi-admin": "3.6.1",
+    "strapi-connector-bookshelf": "3.6.1",
+    "strapi-connector-mongoose": "3.6.1",
+    "strapi-plugin-content-manager": "3.6.1",
+    "strapi-plugin-content-type-builder": "3.6.1",
+    "strapi-plugin-email": "3.6.1",
+    "strapi-plugin-upload": "3.6.1",
+    "strapi-plugin-users-permissions": "3.6.1",
+    "strapi-provider-upload-aws-s3": "^3.6.1",
     "strapi-provider-upload-aws-s3-cdn": "file:providers/strapi-provider-upload-aws-s3-cdn",
-    "strapi-utils": "3.5.4"
+    "strapi-utils": "3.6.1"
   },
   "author": {
     "name": "A Strapi developer"

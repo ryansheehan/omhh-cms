@@ -18,11 +18,9 @@ const configure_upload_local = env => ({});
 const configure_upload = env => {
   switch(env('UPLOAD_PROVIDER')) {
     case 'aws-s3':
-      console.log('setting upload provider to aws-s3');
       return configure_upload_aws(env);
     case 'local':
     default:
-      console.log('setting upload provider to local storage');
       return configure_upload_local(env);
   }
 };

@@ -4,6 +4,7 @@
     "MINIO",
     "adminer",
     "lifecycles",
-    "omhh"
+    "omhh",
+    "strapi"
   ]
 }

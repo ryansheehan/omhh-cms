@@ -1,25 +1,45 @@
 version: "3.8"
 services:
-  db:
-    image: mongo
-    ports:
-      - 27017:27017
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: admin
-      MONGO_INITDB_DATABASE: omhhdev
-    volumes:
-      - db-data:/data/db
-      - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+  # db:
+  #   image: mongo
+  #   ports:
+  #     - 27017:27017
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: admin
+  #     MONGO_INITDB_ROOT_PASSWORD: admin
+  #     MONGO_INITDB_DATABASE: omhhdev
+  #   volumes:
+  #     - db-data:/data/db
+  #     - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
 
-  mongo-express:
-    image: mongo-express
+  # mongo-express:
+  #   image: mongo-express
+  #   ports:
+  #     - 8081:8081
+  #   environment:
+  #     ME_CONFIG_MONGODB_SERVER: db
+  #     ME_CONFIG_MONGODB_ADMINUSERNAME: admin
+  #     ME_CONFIG_MONGODB_ADMINPASSWORD: admin
+
+  db:
+    image: mysql:5.6
     ports:
-      - 8081:8081
+      - 3306:3306
     environment:
-      ME_CONFIG_MONGODB_SERVER: db
-      ME_CONFIG_MONGODB_ADMINUSERNAME: admin
-      ME_CONFIG_MONGODB_ADMINPASSWORD: admin
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: strapi
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+    volumes:
+      - db-data:/var/lib/mysql
+
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+    environment:
+      ADMINER_DESIGN: nette
+      ADMINER_DEFAULT_SERVER: db
 
   s3-minio:
     image: minio/minio

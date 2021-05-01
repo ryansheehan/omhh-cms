@@ -4,7 +4,11 @@
     "name": "food-nutrient",
     "icon": "sitemap"
   },
-  "options": {},
+  "options": {
+    "privateAttributes": [
+      "id"
+    ]
+  },
   "attributes": {
     "amount": {
       "type": "float",
