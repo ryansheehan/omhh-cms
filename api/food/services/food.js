@@ -24,4 +24,9 @@ module.exports = {
       throw err;
     }
   },
+
+  async upsertFoods(foods) {
+    const fdc_ids = foods.map(f => f.fdc_id);
+    // const current = await strapi.query('food').
+  }
 };

@@ -1,5 +1,6 @@
 'use strict';
 const { sanitizeEntity } = require('strapi-utils');
+const { create } = require('../../food/controllers/food');
 
 /**
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-controllers)
@@ -14,18 +15,15 @@ module.exports = {
     const results = sanitizeEntity(entity, { model: strapi.models.nutrient });
     return results;
   },
-
   async create(ctx) {
-    // validate header
-
-    // const results = await strapi.query('nutrient').createMany([
-    //   {name: 'Bulk 1', unit_name: 'mg', nutrient_id: 9988},
-    //   {name: 'Bulk 1', unit_name: 'mg', nutrient_id: 9987},
-    // ]);
-
-    // call service with body text
-    return ctx.send({
-      result: ctx.request.body
-    });
-  },
+    const nutrients = ctx.request.body;
+    try {
+      const results = await strapi.services.nutrient.upsertMany(nutrients);
+      return results;
+    } catch(err) {
+      strapi.log.error(err);
+      ctx.status = 500;
+      ctx.body = 'unable to process nutrients';
+    }
+  }
 };
