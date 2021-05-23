@@ -18,7 +18,7 @@
     },
     {
       "method": "GET",
-      "path": "/foods/:id",
+      "path": "/foods/:fdc_id",
       "handler": "food.findOne",
       "config": {
         "policies": []
@@ -34,7 +34,7 @@
     },
     {
       "method": "PUT",
-      "path": "/foods/:id",
+      "path": "/foods/:fdc_id",
       "handler": "food.update",
       "config": {
         "policies": []
@@ -42,7 +42,7 @@
     },
     {
       "method": "DELETE",
-      "path": "/foods/:id",
+      "path": "/foods/:fdc_id",
       "handler": "food.delete",
       "config": {
         "policies": []
