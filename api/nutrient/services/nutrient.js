@@ -41,19 +41,24 @@ module.exports = {
 
     // update existing nutrients
     const updatedNutrients = [];
-    existingNutrients.forEach(async nutrient => {
+    for await(const nutrient of existingNutrients) {
       const id = lookup[nutrient.nutrient_id];
       const updated = await strapi.query('nutrient').update({id}, nutrient);
       updatedNutrients.push(updated);
-    });
+    }
+    // existingNutrients.forEach(async nutrient => {
+    //   const id = lookup[nutrient.nutrient_id];
+    //   const updated = await strapi.query('nutrient').update({id}, nutrient);
+    //   updatedNutrients.push(updated);
+    // });
 
     // create new nutrients
     const createdNutrients = await strapi.query('nutrient').createMany(newNutrients);
 
     // return the results;
     return {
-      created: createdNutrients.map(n => sanitizeEntity(n)),
-      updated: updatedNutrients.map(n => sanitizeEntity(n)),
+      created: createdNutrients,
+      updated: updatedNutrients,
     };
   }
 };

@@ -28,8 +28,7 @@
     "nutrient_id": {
       "type": "integer",
       "required": true,
-      "unique": true,
-      "private": true
+      "unique": true
     }
   }
 }

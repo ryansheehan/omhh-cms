@@ -18,8 +18,11 @@ module.exports = {
   async create(ctx) {
     const nutrients = ctx.request.body;
     try {
-      const results = await strapi.services.nutrient.upsertMany(nutrients);
-      return results;
+      const {created, updated} = await strapi.services.nutrient.upsertMany(nutrients);
+      return {
+        created: created.map(entity => sanitizeEntity(entity, { model: strapi.models.nutrient})),
+        updated: updated.map(entity => sanitizeEntity(entity, { model: strapi.models.nutrient})),
+      }
     } catch(err) {
       strapi.log.error(err);
       ctx.status = 500;
