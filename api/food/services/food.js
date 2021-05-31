@@ -41,16 +41,37 @@ module.exports = {
   async upsertMany(foods) {
     const errors = [];
 
+    // create a map between incoming nutrient ids to internal strapi ids
+    const nutrient_ids = new Set(foods.flatMap(f => f.nutrients.map(n => n.nutrient)));
+
+    const nutrientsQuery = await strapi.query('nutrient')
+      .model.query(qb => {
+        qb.where('nutrient_id', 'in', Array.from(nutrient_ids))
+      })
+      .fetchAll();
+
+    const nutrientIdMap = nutrientsQuery.toJSON().reduce((m, n) => {
+      const {id, nutrient_id} = n;
+      m[nutrient_id] = id;
+      return m;
+    }, {});
+
+    // convert the incoming foods to use the internal nutrient id for further processing
+    foods.forEach(f => f.nutrients.forEach(n => n.nutrient = nutrientIdMap[n.nutrient]));
+
+    // validate the foods we need to process
     const validatedPromises = await Promise.allSettled(
       foods.map(food => strapi.entityValidator.validateEntityUpdate(strapi.models.food, food))
     );
 
+    // collect any foods that fail to process
     errors.concat(
       validatedPromises
         .filter(({status}) => status === 'rejected')
         .map(({reason}) => reason)
     );
 
+    // make a map of all the foods that have valid data
     const newFoods = validatedPromises
       .filter(({status}) => status === 'fulfilled')
       .map(({value}) => value)
@@ -59,6 +80,8 @@ module.exports = {
         return col;
       }, {});
 
+    // gather a list of the valid food ids so we can determine what foods
+    // are being updated vs which foods are new
     const fdc_ids = Object.keys(newFoods);
 
     // find existing foods
