@@ -10,8 +10,7 @@
     "timestamps": false,
     "privateAttributes": [
       "created_at",
-      "updated_at",
-      "id"
+      "updated_at"
     ],
     "daftAndPublish": false,
     "draftAndPublish": false

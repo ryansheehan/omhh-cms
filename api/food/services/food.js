@@ -41,24 +41,6 @@ module.exports = {
   async upsertMany(foods) {
     const errors = [];
 
-    // create a map between incoming nutrient ids to internal strapi ids
-    const nutrient_ids = new Set(foods.flatMap(f => f.nutrients.map(n => n.nutrient)));
-
-    const nutrientsQuery = await strapi.query('nutrient')
-      .model.query(qb => {
-        qb.where('nutrient_id', 'in', Array.from(nutrient_ids))
-      })
-      .fetchAll();
-
-    const nutrientIdMap = nutrientsQuery.toJSON().reduce((m, n) => {
-      const {id, nutrient_id} = n;
-      m[nutrient_id] = id;
-      return m;
-    }, {});
-
-    // convert the incoming foods to use the internal nutrient id for further processing
-    foods.forEach(f => f.nutrients.forEach(n => n.nutrient = nutrientIdMap[n.nutrient]));
-
     // validate the foods we need to process
     const validatedPromises = await Promise.allSettled(
       foods.map(food => strapi.entityValidator.validateEntityUpdate(strapi.models.food, food))
@@ -72,13 +54,15 @@ module.exports = {
     );
 
     // make a map of all the foods that have valid data
-    const newFoods = validatedPromises
+    const newFoodsList = validatedPromises
       .filter(({status}) => status === 'fulfilled')
-      .map(({value}) => value)
-      .reduce((col, food) => {
-        col[food.fdc_id] = food;
-        return col;
-      }, {});
+      .map(({value}) => value);
+
+
+    const newFoods = newFoodsList.reduce((col, food) => {
+      col[food.fdc_id] = food;
+      return col;
+    }, {});
 
     // gather a list of the valid food ids so we can determine what foods
     // are being updated vs which foods are new
@@ -92,37 +76,67 @@ module.exports = {
       .fetchAll();
 
     const foodsToBeUpdated = foodsToBeUpdatedQuery.toJSON();
+    const skippedFoods = {};
+    const existingFoods = foodsToBeUpdated
+      // compare new food to the existing food and decide if anything has actually changed
+      .filter(({fdc_id, description, nutrients, source}) => {
+        const newFood = newFoods[fdc_id];
+        const newFoodNutrientMap = newFood.nutrients.reduce((m, n) => {
+          m[n.nutrient] = n.amount;
+          return m;
+        },{});
 
-    const existingFoods = foodsToBeUpdated.reduce((col, food) => {
-      col[food.fdc_id] = food;
-      return col;
-    }, {});
+        const shouldUpdate = description != newFood.description ||
+          source != newFood.source ||
+          nutrients.length != newFood.nutrients.length ||
+          !nutrients.every(({nutrient, amount}) => {
+            const {id} = nutrient;
+            return id in newFoodNutrientMap && amount === newFoodNutrientMap[id];
+          });
+
+        if (!shouldUpdate) {
+          skippedFoods[fdc_id] = newFood;
+        }
+
+        return shouldUpdate;
+      })
+      .reduce((col, food) => {
+        col[food.fdc_id] = food;
+        return col;
+      }, {});
+
 
     // find foods that do not already exist
     const foodsToAdd = [];
     fdc_ids.forEach(fid => {
-      if (! (fid in existingFoods)) {
+      if (! (fid in existingFoods) && ! (fid in skippedFoods)) {
         foodsToAdd.push(newFoods[fid]);
       }
     });
 
     // update existing foods
-    const updatedPromises = await Promise.allSettled(foodsToBeUpdated.map(
-      ({id, fdc_id}) => strapi.query('food').update({id}, newFoods[fdc_id])
-    ));
+
+    const plist = foodsToBeUpdated
+      .filter(({fdc_id}) => fdc_id in existingFoods)
+      .map(
+        ({id, fdc_id}) => strapi.query('food').update({id}, newFoods[fdc_id])
+      );
+
+    const updatedPromises = await Promise.allSettled(plist);
+
+    const updatedErrors = updatedPromises
+      .filter(({status}) => status === 'rejected')
+      .map(({reason}) => reason);
 
     // collect errors
-    errors.concat(
-      updatedPromises
-        .filter(({status}) => status === 'rejected')
-        .map(({reason}) => reason)
-    );
+    errors.concat(updatedErrors);
 
     // get finalized results
     const foodsUpdated = updatedPromises
       .filter(({status}) => status === 'fulfilled')
       .map(({value}) => value);
 
+    const updatesSkipped = foodsToBeUpdated.length - (updatedErrors.length + foodsUpdated.length);
 
     // add new foods
     const addedFoods = await strapi.query('food').createMany(foodsToAdd);
@@ -131,7 +145,9 @@ module.exports = {
     return {
       created: addedFoods,
       updated: foodsUpdated,
+      skipped: updatesSkipped,
       errors,
+      profile,
     };
   }
 };
