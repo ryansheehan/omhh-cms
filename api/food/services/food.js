@@ -139,7 +139,47 @@ module.exports = {
     const updatesSkipped = foodsToBeUpdated.length - (updatedErrors.length + foodsUpdated.length);
 
     // add new foods
-    const addedFoods = await strapi.query('food').createMany(foodsToAdd);
+    // const addedFoods = await strapi.query('food').createMany(foodsToAdd);
+
+    const knex = strapi.connections.default;
+
+    // insert into foods
+    const foodObjs = foodsToAdd.map(({fdc_id, description, source}) => ({fdc_id, description, source}));
+    const [firstAddedId] = await knex('foods')
+      .insert(foodObjs)
+      .returning('id');
+    const foodsAdded = Array.from({length: foodsToAdd.length}, (_, i) => i + firstAddedId);
+
+    // insert into components_nutrition_food_nutrients
+    const foodNutrientsAdded = {};
+    for await(const [i, food] of foodsToAdd.entries()) {
+      const [firstAdded] = await knex('components_nutrition_food_nutrients')
+        .insert(food.nutrients)
+        .returning('id');
+
+      foodNutrientsAdded[foodsAdded[i]] = Array.from({length: food.nutrients.length}, (_, i) => i + firstAdded);
+    }
+
+    // insert into foods_components
+    const food_components = Object.entries(foodNutrientsAdded).flatMap(
+      ([food_id, nutrientIds]) =>
+        nutrientIds.map((component_id, order) => ({
+          field: 'nutrients',
+          order: order + 1,
+          component_type: 'components_nutrition_food_nutrients',
+          component_id,
+          food_id,
+        }))
+    );
+    await knex('foods_components').insert(food_components);
+
+    // select all the foods added
+    const addedFoodsQuery = await strapi.query('food')
+      .model.query(qb => {
+        qb.where('id', 'in', foodsAdded)
+      })
+      .fetchAll();
+    const addedFoods = addedFoodsQuery.toJSON();
 
     // return results
     return {
@@ -147,7 +187,6 @@ module.exports = {
       updated: foodsUpdated,
       skipped: updatesSkipped,
       errors,
-      profile,
     };
   }
 };
