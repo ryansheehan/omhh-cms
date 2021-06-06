@@ -146,16 +146,15 @@ module.exports = {
     // insert into foods
     const foodObjs = foodsToAdd.map(({fdc_id, description, source}) => ({fdc_id, description, source}));
     const [firstAddedId] = await knex('foods')
-      .insert(foodObjs)
-      .returning('id');
+      .insert(foodObjs);
+
     const foodsAdded = Array.from({length: foodsToAdd.length}, (_, i) => i + firstAddedId);
 
     // insert into components_nutrition_food_nutrients
     const foodNutrientsAdded = {};
     for await(const [i, food] of foodsToAdd.entries()) {
       const [firstAdded] = await knex('components_nutrition_food_nutrients')
-        .insert(food.nutrients)
-        .returning('id');
+        .insert(food.nutrients);
 
       foodNutrientsAdded[foodsAdded[i]] = Array.from({length: food.nutrients.length}, (_, i) => i + firstAdded);
     }
