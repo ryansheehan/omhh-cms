@@ -1,8 +1,9 @@
 {
   "collectionName": "components_nutrition_food_nutrients",
   "info": {
-    "name": "food-nutrient",
-    "icon": "sitemap"
+    "name": "nutrient",
+    "icon": "sitemap",
+    "description": ""
   },
   "options": {
     "privateAttributes": [
@@ -14,8 +15,13 @@
       "type": "float",
       "required": true
     },
-    "nutrient": {
-      "model": "nutrient"
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "unit_name": {
+      "type": "string",
+      "required": true
     }
   }
 }

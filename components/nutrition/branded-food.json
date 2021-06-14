@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_nutrition_food_brand",
+  "info": {
+    "name": "brand",
+    "icon": "carrot",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "brand_owner": {
+      "type": "string",
+      "required": false
+    },
+    "brand_name": {
+      "type": "string"
+    },
+    "subbrand_name": {
+      "type": "string"
+    },
+    "serving_size": {
+      "type": "decimal",
+      "required": false
+    },
+    "serving_size_unit": {
+      "type": "string"
+    },
+    "household_serving_fulltext": {
+      "type": "string"
+    }
+  }
+}

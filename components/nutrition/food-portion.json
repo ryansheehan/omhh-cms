@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_nutrition_food_portions",
+  "info": {
+    "name": "portion",
+    "icon": "balance-scale-right",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "amount": {
+      "type": "decimal",
+      "required": true
+    },
+    "unit": {
+      "type": "string",
+      "required": true
+    },
+    "gram_weight": {
+      "type": "decimal",
+      "required": true
+    },
+    "portion_description": {
+      "type": "string"
+    },
+    "modifier": {
+      "type": "string"
+    }
+  }
+}
