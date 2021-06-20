@@ -205,7 +205,7 @@ module.exports = {
         }
 
         // insert into components_nutrition_food_portions
-        if (food.portions) {
+        if (food.portions && food.portions.length > 1) {
           const [firstPortionIdAdded] = await knex('components_nutrition_food_portions')
             .insert(food.portions);
 
@@ -264,7 +264,7 @@ module.exports = {
         })
         .fetchAll();
       const addedFoods = addedFoodsQuery.toJSON();
-      createdFoods.concat(addedFoods);
+      createdFoods.push(...addedFoods);
     }
 
     // return results

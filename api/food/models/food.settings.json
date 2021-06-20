@@ -35,11 +35,16 @@
     "source": {
       "type": "enumeration",
       "enum": [
+        "custom",
+        "agricultural_acquisition",
         "branded_food",
+        "experimental_food",
         "foundation_food",
+        "market_acquisition",
+        "sample_food",
         "sr_legacy_food",
-        "survey_fndds_food",
-        "custom"
+        "sub_sample_food",
+        "survey_fndds_food"
       ],
       "required": true,
       "default": "custom"
