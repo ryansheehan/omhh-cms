@@ -3,6 +3,7 @@
     "INITDB",
     "MINIO",
     "adminer",
+    "buffetjs",
     "lifecycles",
     "omhh",
     "strapi"

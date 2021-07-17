@@ -32,6 +32,8 @@ services:
       MYSQL_PASSWORD: user
     volumes:
       - db-data:/var/lib/mysql
+    networks:
+      - omhh
 
   adminer:
     image: adminer
@@ -40,6 +42,8 @@ services:
     environment:
       ADMINER_DESIGN: nette
       ADMINER_DEFAULT_SERVER: db
+    networks:
+      - omhh
 
   s3-minio:
     image: minio/minio
@@ -52,13 +56,21 @@ services:
     command: server /data
     volumes:
       - s3-data:/data
+    networks:
+      - omhh
 
   bootstrap-minio:
     build: ./local-bootstrap/minio
     command: omhh-images
     volumes:
       - ./.aws:/root/.aws
+    networks:
+      - omhh
 
 volumes:
   s3-data:
   db-data:
+
+networks:
+  omhh:
+    name: omhh

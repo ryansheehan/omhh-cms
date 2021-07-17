@@ -56,8 +56,8 @@ const generateThumbnail = async file => {
       const { width, height, size } = await getMetadatas(newBuff);
 
       return {
-        name: `thumbnail_${file.name}`,
-        hash: `thumbnail_${file.hash}`,
+        name: `${file.name}_thumbnail`,
+        hash: `${file.hash}_thumbnail`,
         ext: file.ext,
         mime: file.mime,
         width,
@@ -86,7 +86,7 @@ const optimize = async buffer => {
   return sharpInstance
     .toBuffer({ resolveWithObject: true })
     .then(({ data, info }) => ({
-      buffer: data,
+      buffer: buffer.length < data.length ? buffer : data,
       info: {
         width: info.width,
         height: info.height,
@@ -183,8 +183,8 @@ const generateBreakpoint = async (key, { file, toFormat, breakpoint }) => {
     return {
       key,
       file: {
-        name: `${key}_${reName(file.name, ext)}`,
-        hash: `${key}_${file.hash}`,
+        name: reName(`${file.name}_${key}`, ext),
+        hash: `${file.hash}_${key}`,
         ext,
         mime: `image/${format}`,
         width,
