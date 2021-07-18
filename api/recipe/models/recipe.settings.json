@@ -55,6 +55,34 @@
       "plugin": "upload",
       "required": false,
       "pluginOptions": {}
+    },
+    "total_time": {
+      "type": "integer"
+    },
+    "tags": {
+      "type": "component",
+      "repeatable": true,
+      "component": "data.tag"
+    },
+    "yield_unit": {
+      "type": "string"
+    },
+    "yield_amount": {
+      "type": "decimal"
+    },
+    "blog": {
+      "via": "recipe",
+      "model": "blog"
+    },
+    "subrecipes": {
+      "type": "component",
+      "repeatable": true,
+      "component": "recipe.subrecipe"
+    },
+    "portions": {
+      "type": "component",
+      "repeatable": true,
+      "component": "recipe.portion"
     }
   }
 }

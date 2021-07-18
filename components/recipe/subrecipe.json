@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_recipe_subrecipes",
+  "info": {
+    "name": "subrecipe",
+    "icon": "utensil-spoon"
+  },
+  "options": {},
+  "attributes": {
+    "amount": {
+      "type": "decimal",
+      "required": true
+    },
+    "unit_name": {
+      "type": "string",
+      "required": true
+    },
+    "recipe": {
+      "model": "recipe"
+    }
+  }
+}

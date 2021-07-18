@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_recipe_portions",
+  "info": {
+    "name": "Portion",
+    "icon": "balance-scale"
+  },
+  "options": {},
+  "attributes": {
+    "amount": {
+      "type": "decimal",
+      "required": true
+    },
+    "unit": {
+      "type": "string",
+      "required": true
+    },
+    "gram_weight": {
+      "type": "decimal",
+      "required": true
+    },
+    "portion_description": {
+      "type": "string"
+    },
+    "modifier": {
+      "type": "string"
+    }
+  }
+}
